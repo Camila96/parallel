@@ -1,9 +1,9 @@
-package testGUI;
+package test;
+
+import gui.ConsoleNode;
 
 import java.io.IOException;
-import java.util.Scanner;
 
-import frameConsole.ConsoleNode;
 
 public class TestJFrameNode {
 
@@ -12,7 +12,6 @@ public class TestJFrameNode {
 				try {
 					ConsoleNode consoleNode = new ConsoleNode();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			

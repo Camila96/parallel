@@ -1,7 +1,6 @@
 package testGUI;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import frameConsole.ConsoleNode;
 
@@ -9,14 +8,14 @@ public class TestJFrameNode {
 
 	public static void main(String[] args) {
 
-				try {
-					ConsoleNode consoleNode = new ConsoleNode();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			
+		try {
+			@SuppressWarnings("unused")
+			ConsoleNode consoleNode = new ConsoleNode();
+		} catch (IOException e) {
+			System.err.println("Message from TestJFrameNode: " + e.getMessage());
 		}
 
 	}
+
+}
 

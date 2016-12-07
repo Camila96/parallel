@@ -1,13 +1,17 @@
 package connection;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
 public class Constant{
-
-	public static final String NETWORK_INTERFACE = "enp2s0";
+	//	enp2s0 wlp3s0
+	public static final String NETWORK_INTERFACE = "wlp3s0";
 
 	public static final String P ="p";
 	public static final String S ="s";
@@ -30,7 +34,7 @@ public class Constant{
 	public static final String CLOSE = "CLOSE";
 
 
-	public static final String REAL = "REAL";
+	public static final String RESULT = "RESULT";
 	public static final String CHECK = "CHECK";
 	public static final String COME_BACK = "COME_BACK";
 
@@ -38,26 +42,27 @@ public class Constant{
 
 	public static final int TIME = 5000;
 
-	//	public static void Power(){
-	//		try{
-	//			Process p;
-	//			Runtime app = Runtime.getRuntime();
-	//			p = app.exec(" java -jar pote.jar "++" "+exponent);
-	//			InputStream is = p.getInputStream();
-	//			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-	//			String aux ;
-	//			do {
-	//				aux = reader.readLine();
-	//				if (aux != null) {
-	//					System.out.println(aux);
-	//
-	//				}
-	//
-	//			} while (aux != null);
-	//
-	//		} catch (IOException e) {
-	//		}
-	//	}
+	public static String power(String base, String exponent){
+		try{
+			Process p;
+			Runtime app = Runtime.getRuntime();
+			p = app.exec(" java -jar pote.jar "+ base +" "+exponent);
+			InputStream is = p.getInputStream();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+			String aux ;
+			String result = "";
+			do {
+				aux = reader.readLine();
+				if (aux != null) {
+					String string[] = aux.split(";");
+					result = string[0];
+				}
+			} while (aux != null);
+			return result;
+		} catch (IOException e) {
+			return "Message from Constant " + e.getMessage();
+		}
+	}
 
 	public static void waitThread(){
 		try {
@@ -67,8 +72,6 @@ public class Constant{
 		}
 	}
 
-
-	//		wlp3s0 enp0s3	
 	public static String findIp(){
 		NetworkInterface networkInterface;
 		InetAddress ia = null;

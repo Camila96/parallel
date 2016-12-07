@@ -24,7 +24,8 @@ public class ConsoleNode implements Runnable{
 		System.out.println("NODE IP: " + Constant.findIp());
 		System.out.println("--------------------------Conectarse a otro host------------------------------");
 		System.out.print("Client ip: ");
-		this.ip = this.scanner.next();
+//		this.ip = this.scanner.next();
+		this.ip = "localhost";
 		System.out.println("----------------------------------------------------------------------");
 		System.out.print("Server port: ");
 		this.serverPort = this.scanner.nextInt();
@@ -59,7 +60,7 @@ public class ConsoleNode implements Runnable{
 			Scanner scanner1 = new Scanner(System.in);
 			switch (scanner1.next()) {
 			case "yes":
-				this.node.getRightMessages().add(new Message(this.node.weighing(this.node.getNumberMachines(), this.node.getExponent()), this.node.getBase()));
+				this.node.getRightMessages().add(new Message(Constant.CHECK, this.node.weighing(this.node.getNumberMachines(), this.node.getExponent()), this.node.getBase()));
 				break;
 			case "no":
 				System.exit(0);

@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="GUI"/>
 	<classpathentry kind="src" path="Logic"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="jars/potencia.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

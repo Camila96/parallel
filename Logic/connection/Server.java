@@ -25,6 +25,8 @@ public class Server implements Runnable{
 
 	private ServerWrite serverWrite;
 
+	private Thread thread;
+
 	public Server(int port, Node node) throws IOException {
 
 		this.status = Constant.WAITING;
@@ -39,7 +41,21 @@ public class Server implements Runnable{
 		this.leftMessages = node.getLeftMessages();
 	}
 
-
+	private void calculate(){
+		this.thread = new Thread(new Runnable() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public void run() {
+				while(true){
+					String result = Constant.power(String.valueOf(node.getBase()), String.valueOf(node.getExponent()));
+					System.out.println("Resultado del nodo: " + result);
+					node.getRightMessages().add(new Message(Constant.RESULT, result));
+					thread.stop();
+				}
+			}
+		});
+		thread.start();
+	}
 
 	private void waiting(){
 		try {
@@ -52,27 +68,58 @@ public class Server implements Runnable{
 		}		
 	}
 
+	private void s(Message message){
+		switch (message.getType()) {
+		case Constant.CHECK:
+			this.node.setBase(message.getBase());
+			this.node.setExponent(message.getExponent().get(0));
+			//---------------------------------------------------------
+			System.out.println("Info node\nBase: " + this.node.getBase() + "\nExponent: " + this.node.getExponent());
+			//---------------------------------------------------------
+			message.getExponent().remove(0);
+			this.node.getRightMessages().add(message);
+			this.calculate();
+			break;
+		case Constant.RESULT:
+			this.node.getRightMessages().add(message);
+			break;
+		}
+	}
+
+	private void p(Message message){
+		switch (message.getType()) {
+		case Constant.RESULT:
+			this.node.getResults().add(message.getResult());
+			if (this.node.getResults().size() == this.node.getNumberMachines()) {
+				double result  = 0;
+				for (int i = 0; i < this.node.getNumberMachines(); i++) {
+					result *= Double.parseDouble(this.node.getResults().get(i));
+				}
+				System.out.println("Resultado final " + result);
+			}
+			break;
+		case Constant.CHECK:
+			System.out.println("Nodos listos");
+			break;
+		}
+	}
+
 	private void listening(){
 		try {
 			Message message = (Message) this.objectInputStream.readObject();
 			switch (this.node.getType()) {
 			case Constant.P:
-
+				this.p(message);
 				break;
 			case Constant.S:
-				this.node.setBase(message.getBase());
-				this.node.setExponent(message.getExponent().get(0));
-				System.out.println(message.toString());
-				message.getExponent().remove(0);
-				this.node.getRightMessages().add(message);
-				break;
-			default:
+				this.s(message);
 				break;
 			}
 		} catch (ClassNotFoundException | IOException e) {
 			System.err.println("No escucha: " + e.getMessage());
 		}
 	}
+
 
 	private void server() {
 		switch (this.status) {

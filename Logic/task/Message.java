@@ -28,8 +28,9 @@ public class Message implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Base: "+ base+ " Exponent"+ exponent;
+		return "Type: "+ this.type + " Result "+ this.result;
 	}
+
 	public double getBase() {
 		return base;
 	}

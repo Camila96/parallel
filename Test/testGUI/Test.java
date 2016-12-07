@@ -21,7 +21,7 @@ public class Test {
 				aux = reader.readLine();
 				if (aux != null) {
 					String string[] = aux.split(";");
-					result = string[0];
+					result = string[1];
 				}
 			} while (aux != null);
 			return result;
@@ -32,7 +32,7 @@ public class Test {
 
 
 	public static void main(String[] args) {
-		Test.power(String.valueOf(2), String.valueOf(8));
+		System.out.println(Test.power(String.valueOf(2), String.valueOf(8)));
 		
 	}
 }

@@ -21,13 +21,14 @@ public class Node {
 	private Client client;
 	private String type;
 
-	public Node(String type, int numberMachines, double base, double exponent) {
+	public Node(String type, int numberMachines, double base, Integer exponent) {
 		this.type = type;
 		this.numberMachines = numberMachines;
 		this.base = base;
 		this.exponent = exponent;
 		this.leftMessages = new ArrayList<Message>();
 		this.rightMessages = new ArrayList<Message>();
+		this.results = new ArrayList<String>();
 		this.server = null;
 		this.client = null;
 	}
@@ -36,48 +37,49 @@ public class Node {
 		this.type = type;
 		this.leftMessages = new ArrayList<Message>();
 		this.rightMessages = new ArrayList<Message>();
+		this.results = new ArrayList<String>();
 		this.server = null;
 		this.client = null;
 	}
 
 	public ArrayList<Double> weighing(int numberMachine, double exponent){
 		//		Prueba
-		ArrayList<Double> arrayList = new ArrayList<Double>();
-		arrayList.add(3.2);
-		arrayList.add(3.2);
-		arrayList.add(1.6);
-		return arrayList;
+//		ArrayList<Double> arrayList = new ArrayList<Double>();
+//		arrayList.add(3.2);
+//		arrayList.add(3.2);
+//		arrayList.add(1.6);
+//		return arrayList;
 		//		Cami
-		//		ArrayList<Integer> arrayList = new ArrayList<Integer>();
-		//		ArrayList<Double> auxA = new ArrayList<Double>();
-		//		if (numberMachine ==1) {
-		//			arrayList.add( 100);
-		//		}else{
-		//			for (int i = 0; i < numberMachine; i++) {
-		//				if (arrayList.size()==0) {				
-		//					arrayList.add((int) ((Math.random()*(100 - (numberMachine-1)))+1));
-		//				}else{
-		//					if (i == (numberMachine-1)) {
-		//						double aux =0;
-		//						for (int j = 0; j < arrayList.size(); j++) {
-		//							aux=  (arrayList.get(j) + aux);
-		//						}
-		//						arrayList.add( (int) (100- aux));				
-		//					}else{
-		//						double aux =0;
-		//						for (int j = 0; j < arrayList.size(); j++) {
-		//							aux=  (arrayList.get(j) + aux);
-		//						}
-		//						arrayList.add((int) ((Math.random()* ((100 - (numberMachine-1))- aux ))+1));
-		//					}
-		//				}
-		//			}
-		//		}
-		//		for (int i = 0; i < arrayList.size(); i++) {
-		//			auxA.add((double) (arrayList.get(i)*(exponent/100))); 
-		//		}
-		//		System.out.println(" % "+ arrayList);
-		//		return auxA;
+				ArrayList<Integer> arrayList = new ArrayList<Integer>();
+				ArrayList<Double> auxA = new ArrayList<Double>();
+				if (numberMachine ==1) {
+					arrayList.add( 100);
+				}else{
+					for (int i = 0; i < numberMachine; i++) {
+						if (arrayList.size()==0) {				
+							arrayList.add((int) ((Math.random()*(100 - (numberMachine-1)))+1));
+						}else{
+							if (i == (numberMachine-1)) {
+								double aux =0;
+								for (int j = 0; j < arrayList.size(); j++) {
+									aux=  (arrayList.get(j) + aux);
+								}
+								arrayList.add( (int) (100- aux));				
+							}else{
+								double aux =0;
+								for (int j = 0; j < arrayList.size(); j++) {
+									aux=  (arrayList.get(j) + aux);
+								}
+								arrayList.add((int) ((Math.random()* ((100 - (numberMachine-1))- aux ))+1));
+							}
+						}
+					}
+				}
+				for (int i = 0; i < arrayList.size(); i++) {
+					auxA.add((double) (arrayList.get(i)*(exponent/100))); 
+				}
+				System.out.println(" % "+ arrayList);
+				return auxA;
 	}
 
 
@@ -93,13 +95,28 @@ public class Node {
 		this.client.getThreadClient().start();
 	}
 
-
-	public String getType() {
-		return type;
+	public ArrayList<Message> getLeftMessages() {
+		return leftMessages;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setLeftMessages(ArrayList<Message> leftMessages) {
+		this.leftMessages = leftMessages;
+	}
+
+	public ArrayList<Message> getRightMessages() {
+		return rightMessages;
+	}
+
+	public void setRightMessages(ArrayList<Message> rightMessages) {
+		this.rightMessages = rightMessages;
+	}
+
+	public ArrayList<String> getResults() {
+		return results;
+	}
+
+	public void setResults(ArrayList<String> results) {
+		this.results = results;
 	}
 
 	public double getBase() {
@@ -126,14 +143,6 @@ public class Node {
 		this.numberMachines = numberMachines;
 	}
 
-	public ArrayList<Message> getLeftMessages() {
-		return leftMessages;
-	}
-
-	public void setLeftMessages(ArrayList<Message> leftMessages) {
-		this.leftMessages = leftMessages;
-	}
-
 	public Server getServer() {
 		return server;
 	}
@@ -150,19 +159,14 @@ public class Node {
 		this.client = client;
 	}
 
-	public ArrayList<Message> getRightMessages() {
-		return rightMessages;
+	public String getType() {
+		return type;
 	}
 
-	public void setRightMessages(ArrayList<Message> rightMessages) {
-		this.rightMessages = rightMessages;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public ArrayList<String> getResults() {
-		return results;
-	}
-
-	public void setResults(ArrayList<String> results) {
-		this.results = results;
-	}
+	
+	
 }

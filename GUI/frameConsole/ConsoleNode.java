@@ -24,8 +24,7 @@ public class ConsoleNode implements Runnable{
 		System.out.println("NODE IP: " + Constant.findIp());
 		System.out.println("--------------------------Conectarse a otro host------------------------------");
 		System.out.print("Client ip: ");
-//		this.ip = this.scanner.next();
-		this.ip = "localhost";
+		this.ip = this.scanner.next();
 		System.out.println("----------------------------------------------------------------------");
 		System.out.print("Server port: ");
 		this.serverPort = this.scanner.nextInt();
@@ -39,7 +38,7 @@ public class ConsoleNode implements Runnable{
 			System.out.println("Digite la base");
 			double base = scanner.nextDouble();
 			System.out.println("Digite el exponente");
-			double exponent = scanner.nextDouble();
+			Integer exponent = scanner.nextInt();
 			this.node = new Node(Constant.P, numberMachines, base, exponent);
 			this.threadConsoleNode.start();
 			break;

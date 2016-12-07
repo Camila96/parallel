@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import node.Node;
 import task.Message;
+import task.Potencia;
 
 public class Server implements Runnable{
 
@@ -43,11 +44,14 @@ public class Server implements Runnable{
 
 	private void calculate(){
 		this.thread = new Thread(new Runnable() {
+			Potencia potencia = new Potencia();
 			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
 				while(true){
-					String result = Constant.power(String.valueOf(node.getBase()), String.valueOf(node.getExponent()));
+					potencia.setBase(node.getBase());
+					potencia.setExponent(node.getExponent());
+					String result = String.valueOf(potencia.elv());
 					System.out.println("Resultado del nodo: " + result);
 					node.getRightMessages().add(new Message(Constant.RESULT, result));
 					thread.stop();
@@ -89,13 +93,15 @@ public class Server implements Runnable{
 	private void p(Message message){
 		switch (message.getType()) {
 		case Constant.RESULT:
+			System.out.println("Resultado que llega: " + message.getResult());
 			this.node.getResults().add(message.getResult());
 			if (this.node.getResults().size() == this.node.getNumberMachines()) {
-				double result  = 0;
+				double result  = 1;
 				for (int i = 0; i < this.node.getNumberMachines(); i++) {
 					result *= Double.parseDouble(this.node.getResults().get(i));
 				}
 				System.out.println("Resultado final " + result);
+				this.node.setResults(new ArrayList<>());
 			}
 			break;
 		case Constant.CHECK:

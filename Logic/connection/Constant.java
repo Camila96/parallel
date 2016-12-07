@@ -11,7 +11,7 @@ import java.util.Enumeration;
 
 public class Constant{
 	//	enp2s0 wlp3s0
-	public static final String NETWORK_INTERFACE = "wlp3s0";
+	public static final String NETWORK_INTERFACE = "enp2s0";
 
 	public static final String P ="p";
 	public static final String S ="s";
